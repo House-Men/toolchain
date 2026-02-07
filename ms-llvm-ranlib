@@ -1,0 +1,8 @@
+#!/bin/bash
+for arg in "$@"; do
+    if [[ "$arg" =~ ^/[a-zA-Z]/ ]]; then
+        win_arg=$(echo "$arg" | sed 's|^/\([a-zA-Z]\)/|\1:/|')
+        exec "llvm-ranlib.exe" "$win_arg"
+    fi
+done
+exec "llvm-ranlib.exe" "$@"
