@@ -1,3 +1,10 @@
 #!/bin/sh
-clang++ --target=x86_64-pc-windows-msvc -fuse-ld=lld "$@"
-#-lmsvcrt
+clang++ --target=x86_64-pc-windows-msvc -fuse-ld=lld -Wno-ignored-attributes -Wno-expansion-to-defined \
+ -I"$MSVC_ROOT/include" \
+ -I"$WINSDK_ROOT/Include/$WINSDK_VER/ucrt" \
+ -I"$WINSDK_ROOT/Include/$WINSDK_VER/shared" \
+ -I"$WINSDK_ROOT/Include/$WINSDK_VER/um" \
+ -L"$WINSDK_ROOT/Lib/$WINSDK_VER/ucrt/x64" \
+ -L"$WINSDK_ROOT/Lib/$WINSDK_VER/um/x64" \
+ -L"$MSVC_ROOT/lib/x64" -lmsvcrt \
+ "$@"
